@@ -1,12 +1,10 @@
 const router = require("express").Router();
+const User = require("../config/model/user");
 
 
-router.get("/", (req, res)=>{
-    if (req.isAuthenticated()) {
-        res.render("secrets");
-    } else {
-        res.redirect("/login");
-    }
+router.get("/", async(req, res)=>{
+    const users = await User.find({secrets: {$ne: null}});
+    res.render("secrets", {users: users});
 });
 
 
