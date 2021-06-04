@@ -13,6 +13,7 @@ router.post("/", async(req, res)=>{
     try {
         await User.register({username: username}, password, (err, account)=>{
             if (err) {
+                console.log(err);
                 res.redirect("/register");
             }
             passport.authenticate("local")(req, res, ()=>{
